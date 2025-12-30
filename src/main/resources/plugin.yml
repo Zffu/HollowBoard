@@ -1,0 +1,4 @@
+name: hollowboard
+version: '1.0.0'
+main: net.zffu.hollowboard.HollowBoardPlugin
+api-version: '1.21'
