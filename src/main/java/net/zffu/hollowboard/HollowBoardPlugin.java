@@ -4,9 +4,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class HollowBoardPlugin extends JavaPlugin {
 
+    public static HollowBoardPlugin INSTANCE;
+
     @Override
     public void onEnable() {
-        // Plugin startup logic
+        INSTANCE = this;
 
     }
 
