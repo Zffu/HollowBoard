@@ -31,6 +31,13 @@ public interface LinePart {
         public boolean isUpdatePossible() {
             return false;
         }
+
+        @Override
+        public String toString() {
+            return "Text{" +
+                    "text='" + text + '\'' +
+                    '}';
+        }
     }
 
     class SkriptVariable implements LinePart {
@@ -49,6 +56,13 @@ public interface LinePart {
         @Override
         public boolean isUpdatePossible() {
             return true;
+        }
+
+        @Override
+        public String toString() {
+            return "SkriptVariable{" +
+                    "variableName='" + variableName + '\'' +
+                    '}';
         }
     }
 

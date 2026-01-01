@@ -4,7 +4,6 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
 public class BoardLine {
 
@@ -78,8 +77,8 @@ public class BoardLine {
 
             switch(c) {
                 case '{':
-                    int ind = getFirstCharInStr(original, i, '}');
-                    parts.add(new LinePart.SkriptVariable(original.substring(i, ind)));
+                    int ind = getFirstCharInStr(original, i + 1, '}');
+                    parts.add(new LinePart.SkriptVariable(original.substring(i + 1, ind)));
 
                     i = ind;
                     break;
@@ -87,6 +86,8 @@ public class BoardLine {
                 default:
                     ind = getFirstOpeningCharInStr(original, i);
                     parts.add(new LinePart.Text(original.substring(i, ind)));
+
+                    i = ind;
                     break;
             }
         }
@@ -94,5 +95,15 @@ public class BoardLine {
         return new BoardLine(parts);
     }
 
+    public List<LinePart> getParts() {
+        return this.parts;
+    }
 
+    @Override
+    public String toString() {
+        return "BoardLine{" +
+                "parts=" + parts +
+                ", canUpdate=" + canUpdate +
+                '}';
+    }
 }
