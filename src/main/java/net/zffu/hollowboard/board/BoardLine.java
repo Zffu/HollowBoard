@@ -3,6 +3,7 @@ package net.zffu.hollowboard.board;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class BoardLine {
@@ -31,10 +32,11 @@ public class BoardLine {
     }
 
     private void updateUpdatableState() {
-        for(LinePart part : this.parts) {
+        for(int i = 0; i < this.parts.size(); ++i) {
+            LinePart part = this.parts.get(i);
+
             if(part.isUpdatePossible()) {
                 this.canUpdate = true;
-                break;
             }
         }
     }
@@ -97,6 +99,10 @@ public class BoardLine {
 
     public List<LinePart> getParts() {
         return this.parts;
+    }
+
+    public boolean canUpdate() {
+        return this.canUpdate;
     }
 
     @Override
