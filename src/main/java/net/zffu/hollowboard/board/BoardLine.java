@@ -8,6 +8,8 @@ import java.util.List;
 
 public class BoardLine {
 
+    public static final BoardLine empty = BoardLine.compileLine("");
+
     private List<LinePart> parts;
     private boolean canUpdate;
 

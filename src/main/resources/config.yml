@@ -1,0 +1,32 @@
+#
+# Hollow Board config
+#
+
+# The board components
+# It is recommended to use components for a cleaner config, they also do not cost any performance since they are compiled at startup.
+#
+components:
+  my-component:
+    # Should the component use the hollow board updater
+    update: false
+
+    # The amount of blank lines separating the component with the next component
+    padding: 1
+
+    contents:
+      - "§aHallo that's my component!"
+      - "§aI can now use it somewhere else!"
+
+boards:
+  # The Identifier of the board
+  example:
+    # The title of the board
+    title: "§c§lExample Board"
+    contents:
+      # For skript values the %player% and %player-uuid% placeholders are available for player dependent values
+      - "§fMy Skript value: {myval::%player}"
+      - ""
+      - my-component # Use the component directly here!
+      - ""
+      - "§eTest server!"
+

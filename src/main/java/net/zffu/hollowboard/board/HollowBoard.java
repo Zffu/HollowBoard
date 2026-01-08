@@ -8,10 +8,11 @@ public class HollowBoard {
 
     public static final int MAX_LINE_LENGTH = 15;
 
+    private String title;
     private List<BoardLine> lines;
     private List<IndexedLine> updatableLines;
 
-    public HollowBoard(Collection<BoardLine> lines) {
+    public HollowBoard(String title, Collection<BoardLine> lines) {
         if(lines.size() > MAX_LINE_LENGTH) throw new IllegalArgumentException("Provided Collection has more than " + MAX_LINE_LENGTH + " lines! Cannot make a valid board!");
 
         this.lines = new ArrayList<>();
@@ -28,6 +29,13 @@ public class HollowBoard {
         }
     }
 
+    public HollowBoard(String title) {
+        this.lines = new ArrayList<>();
+        this.updatableLines = new ArrayList<>();
+
+        this.title = title;
+    }
+
     public void append(BoardLine line) {
         if(this.lines.size() >= MAX_LINE_LENGTH) return;
 
@@ -40,6 +48,18 @@ public class HollowBoard {
 
     public boolean isUpdatable() {
         return !this.updatableLines.isEmpty();
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public List<BoardLine> getLines() {
+        return lines;
+    }
+
+    public List<IndexedLine> getUpdatableLines() {
+        return updatableLines;
     }
 
     public static class IndexedLine {

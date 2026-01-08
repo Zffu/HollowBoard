@@ -37,6 +37,15 @@ public class ClientSideScoreboard {
         this.spawned = false;
     }
 
+    public void changeTitle(String title) {
+        this.title = title;
+
+        if(this.spawned) {
+            this.nmsInitialSpawn = new ScoreboardObjective(NMS_SB, "hollowsbdk", IScoreboardCriteria.c, IChatBaseComponent.c(this.title), IScoreboardCriteria.EnumScoreboardHealthDisplay.a, false, null);
+            this.player.g.b(new PacketPlayOutScoreboardObjective(this.nmsInitialSpawn, 0));
+        }
+    }
+
     public void initialSpawn() {
         if(this.spawned) return;
 
@@ -64,6 +73,16 @@ public class ClientSideScoreboard {
         if(this.spawned) {
             this.player.g.b(new PacketPlayOutScoreboardScore("hlw-line-" + line, "hollowsbdk", 15 - line, Optional.of(IChatBaseComponent.a(newLine)), Optional.empty()));
         }
+    }
+
+    public void clear() {
+        this.despawn();
+
+        for(int i = 0; i < 15; ++i) {
+            this.lines[i] = null;
+        }
+
+        this.title = "";
     }
 
     public void despawn() {
