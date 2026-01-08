@@ -2,6 +2,7 @@ package net.zffu.hollowboard.board.components;
 
 import net.zffu.hollowboard.board.DynamicLineComponent;
 import org.bukkit.entity.Player;
+import org.eclipse.sisu.Dynamic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,24 @@ public class DynamicComponent implements BoardContentLike {
                 break;
             }
         }
+    }
 
+    public DynamicComponent() {
+        this.components = new ArrayList<>();
+    }
+
+    public void append(String str) {
+        DynamicLineComponent component = DynamicLineComponent.compileLine(str);
+
+        this.append(component);
+    }
+
+    public void append(DynamicLineComponent component) {
+        if(component.canUpdate()) {
+            this.canUpdate = true;
+        }
+
+        this.components.add(component);
     }
 
     @Override

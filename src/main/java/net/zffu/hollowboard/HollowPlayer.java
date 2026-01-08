@@ -12,8 +12,10 @@ import java.util.List;
 public class HollowPlayer {
 
     public final Player player;
-    private HollowBoard board;
+    public HollowBoard board;
     public ClientSideScoreboard scoreboard;
+
+    public HashMap<BoardContentLike, Boolean> visibility = new HashMap<>();
     public HashMap<BoardContentLike, Integer> lastSizes = new HashMap<>();
 
     private long lastUpdate;
@@ -27,6 +29,7 @@ public class HollowPlayer {
     public void setCurrentBoard(HollowBoard board) {
 
         this.lastSizes.clear();
+        this.visibility.clear();
 
         if(board == null) {
             this.scoreboard.clear();
