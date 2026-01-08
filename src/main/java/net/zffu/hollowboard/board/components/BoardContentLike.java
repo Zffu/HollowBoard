@@ -9,6 +9,8 @@ import java.util.List;
  */
 public interface BoardContentLike {
 
+    boolean canUpdate();
+
     /**
      * Writes the board content for a given user.
      * @param player the player

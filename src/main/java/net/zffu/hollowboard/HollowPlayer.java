@@ -2,9 +2,13 @@ package net.zffu.hollowboard;
 
 import net.zffu.hollowboard.board.BoardLine;
 import net.zffu.hollowboard.board.HollowBoard;
+import net.zffu.hollowboard.board.components.BoardContentLike;
 import net.zffu.hollowboard.utils.ClientSideScoreboard;
 import org.bukkit.craftbukkit.v1_21_R6.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+
+import java.util.HashMap;
+import java.util.UUID;
 
 public class HollowPlayer {
 
@@ -54,9 +58,9 @@ public class HollowPlayer {
     public void updateCurrentBoard() {
         if(!this.board.isUpdatable()) return;
 
-        for(HollowBoard.IndexedLine line : this.board.getUpdatableLines()) {
-            this.scoreboard.change(line.index, line.line.write(player));
-        }
+        int index = 0;
+
+        
     }
 
 }
