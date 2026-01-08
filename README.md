@@ -7,7 +7,7 @@ Scoreboard creation reimagined! Shaw!
 > HollowBoard is currently under heavy work. API might and will change in the future!
 
 ## Why HollowBoard?
-HollowBoard was created as a way for both developpers and server creators to have a simple and efficient way of creating Scoreboards for Minecraft. Creating Scoreboards in Spigot is of course possible but is quite complicated for advanced tasks and stores useless metadata on the server.
+HollowBoard was created as a way for both developers and server creators to have a simple and efficient way of creating Scoreboards for Minecraft. Creating Scoreboards in Spigot is of course possible but is quite complicated for advanced tasks and stores useless metadata on the server.
 
 To prevent this, HollowBoard uses packets and a small cache for players.
 
