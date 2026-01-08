@@ -3,22 +3,21 @@ package net.zffu.hollowboard.board;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-public class BoardLine {
+public class DynamicLineComponent {
 
-    public static final BoardLine empty = BoardLine.compileLine("");
+    public static final DynamicLineComponent empty = DynamicLineComponent.compileLine("");
 
     private List<LinePart> parts;
     private boolean canUpdate;
 
-    public BoardLine() {
+    public DynamicLineComponent() {
         this.parts = new ArrayList<>();
         this.canUpdate = false;
     }
 
-    public BoardLine(List<LinePart> parts) {
+    public DynamicLineComponent(List<LinePart> parts) {
         this.parts = parts;
         this.canUpdate = false;
 
@@ -73,7 +72,7 @@ public class BoardLine {
         return str.length();
     }
 
-    public static BoardLine compileLine(String original) {
+    public static DynamicLineComponent compileLine(String original) {
         List<LinePart> parts = new ArrayList<>();
 
         for(int i = 0; i < original.length(); ++i) {
@@ -96,7 +95,7 @@ public class BoardLine {
             }
         }
 
-        return new BoardLine(parts);
+        return new DynamicLineComponent(parts);
     }
 
     public List<LinePart> getParts() {

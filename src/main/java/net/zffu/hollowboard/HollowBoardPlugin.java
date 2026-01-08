@@ -18,7 +18,6 @@ public final class HollowBoardPlugin extends JavaPlugin implements Listener {
 
     public static HollowBoardPlugin INSTANCE;
 
-    public static HashMap<UUID, ClientSideScoreboard> boards = new HashMap<>();
     public static HashMap<UUID, HollowPlayer> players = new HashMap<>();
 
     public HollowBoard testBoard;
