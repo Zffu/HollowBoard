@@ -1,19 +1,14 @@
 package net.zffu.hollowboard;
 
-import net.minecraft.server.level.EntityPlayer;
-import net.zffu.hollowboard.board.BoardLine;
 import net.zffu.hollowboard.board.HollowBoard;
+import net.zffu.hollowboard.board.components.StaticComponent;
 import net.zffu.hollowboard.task.BoardTickingManager;
 import net.zffu.hollowboard.utils.ClientSideScoreboard;
-import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_21_R6.entity.CraftPlayer;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,14 +34,8 @@ public final class HollowBoardPlugin extends JavaPlugin implements Listener {
 
         this.testBoard = new HollowBoard("§c§lZote's return");
 
-        BoardLine firstLine = BoardLine.compileLine("§b§lZote's the might: §r{bob::%player%}");
-
-        BoardLine secondLine = BoardLine.compileLine("§etest.zffu.dev");
-
-        this.testBoard.append(firstLine);
-        this.testBoard.append(BoardLine.empty);
-        this.testBoard.append(secondLine);
-
+        this.testBoard.append(new StaticComponent(List.of("§b§lZote's the might")));
+        this.testBoard.append(new StaticComponent(List.of("", "§etest.zffu.dev")));
 
         this.getServer().getPluginManager().registerEvents(this, this);
     }

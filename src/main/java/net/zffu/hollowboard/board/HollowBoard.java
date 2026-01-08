@@ -1,6 +1,8 @@
 package net.zffu.hollowboard.board;
 
+import net.zffu.hollowboard.HollowPlayer;
 import net.zffu.hollowboard.board.components.BoardContentLike;
+import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,6 +13,7 @@ public class HollowBoard {
     public static final int MAX_LINE_LENGTH = 15;
 
     private String title;
+
     private List<BoardContentLike> lines;
     private List<IndexedContentLike> updatableLines;
 
@@ -19,6 +22,8 @@ public class HollowBoard {
 
         this.lines = new ArrayList<>();
         this.lines.addAll(lines);
+
+        this.title = title;
 
         this.updatableLines = new ArrayList<>();
 
@@ -48,19 +53,67 @@ public class HollowBoard {
         }
     }
 
-    private void appendUpdatable(BoardContentLike like) {
-        if(!like.canUpdate()) return;
+    private int getTotalPreviousScoreboardSize(HollowPlayer player, IndexedContentLike content) {
+        int sz = 0;
 
-        for(int i = this.lines.size() - 2; i >= 0; ++i) {
+        for(int i = 0; i < content.index; ++i) {
+            BoardContentLike like = this.lines.get(i);
+
+            sz += like.canUpdate() ? player.lastSizes.getOrDefault(like, 0) : like.getSize(player.player);
+        }
+
+        return sz;
+    }
+
+    private void onComponentSizeChange(IndexedContentLike like, HollowPlayer player) {
+        int index = this.getTotalPreviousScoreboardSize(player, like);
+
+        List<String> comp = like.line.write(player.player);
+        player.lastSizes.put(like.line, comp.size());
+
+        for(String str : comp) {
+            player.scoreboard.change(index, str);
+            ++index;
+        }
+
+        for(int i = like.index + 1; i < this.lines.size(); ++i) {
             BoardContentLike l = this.lines.get(i);
 
-            if(l.canUpdate()) {
-                this.updatableLines.add(new IndexedContentLike(like, this.lines.size() - 1, i));
-                return;
+            for(String str : l.write(player.player)) {
+                player.scoreboard.change(index, str);
+                ++index;
             }
         }
 
-        this.updatableLines.add(new IndexedContentLike(like, this.lines.size() - 1, this.lines.size() - 1));
+        for(int i = index; i < 15; ++i) {
+            player.scoreboard.remove(i);
+        }
+    }
+
+    public void update(IndexedContentLike like, HollowPlayer player) {
+        int oldSize = player.lastSizes.getOrDefault(like.line, 0);
+
+        if(oldSize != like.line.getSize(player.player)) {
+            this.onComponentSizeChange(like, player);
+            return;
+        }
+
+        int index = this.getTotalPreviousScoreboardSize(player, like);
+
+        List<String> comp = like.line.write(player.player);
+
+        player.lastSizes.put(like.line, comp.size());
+
+        for(String str : like.line.write(player.player)) {
+            player.scoreboard.change(index, str);
+            ++index;
+        }
+    }
+
+    private void appendUpdatable(BoardContentLike like) {
+        if(!like.canUpdate()) return;
+
+        this.updatableLines.add(new IndexedContentLike(like, this.lines.size() - 1));
     }
 
     public boolean isUpdatable() {
@@ -82,12 +135,10 @@ public class HollowBoard {
     public static class IndexedContentLike {
         public BoardContentLike line;
         public int index;
-        public int arbitrarySizeFromPrevUpdatable;
 
-        public IndexedContentLike(BoardContentLike line, int index, int arbitrarySizeFromPrevUpdatable) {
+        public IndexedContentLike(BoardContentLike line, int index) {
             this.line = line;
             this.index = index;
-            this.arbitrarySizeFromPrevUpdatable = arbitrarySizeFromPrevUpdatable;
         }
     }
 

@@ -1,7 +1,7 @@
 package net.zffu.hollowboard.utils;
 
 import net.minecraft.network.chat.IChatBaseComponent;
-import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundResetScorePacket;
 import net.minecraft.network.protocol.game.PacketPlayOutScoreboardDisplayObjective;
 import net.minecraft.network.protocol.game.PacketPlayOutScoreboardObjective;
 import net.minecraft.network.protocol.game.PacketPlayOutScoreboardScore;
@@ -11,8 +11,6 @@ import net.minecraft.world.scores.Scoreboard;
 import net.minecraft.world.scores.ScoreboardObjective;
 import net.minecraft.world.scores.criteria.IScoreboardCriteria;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_21_R6.entity.CraftPlayer;
-import org.bukkit.entity.Player;
 
 import java.util.Optional;
 
@@ -72,6 +70,16 @@ public class ClientSideScoreboard {
 
         if(this.spawned) {
             this.player.g.b(new PacketPlayOutScoreboardScore("hlw-line-" + line, "hollowsbdk", 15 - line, Optional.of(IChatBaseComponent.a(newLine)), Optional.empty()));
+        }
+    }
+
+    public void remove(int line) {
+        if(this.lines[line] == null) return;
+
+        this.lines[line] = null;
+
+        if(this.spawned) {
+            this.player.g.b(new ClientboundResetScorePacket("hlw-line-" + line, null));
         }
     }
 

@@ -1,6 +1,5 @@
 package net.zffu.hollowboard;
 
-import net.zffu.hollowboard.board.BoardLine;
 import net.zffu.hollowboard.board.HollowBoard;
 import net.zffu.hollowboard.board.components.BoardContentLike;
 import net.zffu.hollowboard.utils.ClientSideScoreboard;
@@ -8,13 +7,14 @@ import org.bukkit.craftbukkit.v1_21_R6.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
-import java.util.UUID;
+import java.util.List;
 
 public class HollowPlayer {
 
-    private Player player;
+    public final Player player;
     private HollowBoard board;
-    private ClientSideScoreboard scoreboard;
+    public ClientSideScoreboard scoreboard;
+    public HashMap<BoardContentLike, Integer> lastSizes = new HashMap<>();
 
     private long lastUpdate;
 
@@ -25,6 +25,9 @@ public class HollowPlayer {
     }
 
     public void setCurrentBoard(HollowBoard board) {
+
+        this.lastSizes.clear();
+
         if(board == null) {
             this.scoreboard.clear();
             this.board = null;
@@ -40,10 +43,19 @@ public class HollowPlayer {
 
         this.scoreboard.changeTitle(this.board.getTitle());
 
-        for(int i = 0; i < this.board.getLines().size(); ++i) {
-            BoardLine line = this.board.getLines().get(i);
+        int index = 0;
 
-            this.scoreboard.change(i, line.write(this.player));
+        for(BoardContentLike like : this.board.getLines()) {
+            List<String> strs = like.write(this.player);
+
+            if(like.canUpdate()) {
+                this.lastSizes.put(like, strs.size());
+            }
+
+            for(String str : strs) {
+                this.scoreboard.change(index, str);
+                ++index;
+            }
         }
 
         if(this.board.isUpdatable()) {
@@ -58,9 +70,8 @@ public class HollowPlayer {
     public void updateCurrentBoard() {
         if(!this.board.isUpdatable()) return;
 
-        int index = 0;
-
-        
+        for(HollowBoard.IndexedContentLike like : this.board.getUpdatableLines()) {
+            this.board.update(like, this);
+        }
     }
-
 }

@@ -18,4 +18,6 @@ public interface BoardContentLike {
      */
     List<String> write(Player player);
 
+    int getSize(Player player);
+
 }
