@@ -88,8 +88,8 @@ We can try this by for example displaying a Skript value in our line. You can ma
 Creating a dynamic line trough code can be quite tedious it is however of course possible by doing the following for example:
 
 ```java
-import net.zffu.hollowboard.board.DynamicLineComponent;
-import net.zffu.hollowboard.board.LinePart;
+import net.zffu.hollowboard.board.lines.parts.DynamicLineComponent;
+import net.zffu.hollowboard.board.lines.parts.LinePart;
 
 DynamicLineComponent line = new DynamicLineComponent();
 LinePart.SkriptVariable mySkriptPart = new LinePart.SkriptVariable("mySkriptVariableName::%player%");
@@ -100,7 +100,7 @@ line.appendPart(mySkriptPart);
 Or trough pattern matching:
 
 ```java
-import net.zffu.hollowboard.board.DynamicLineComponent;
+import net.zffu.hollowboard.board.lines.parts.DynamicLineComponent;
 
 DynamicLineComponent myLineComponent = DynamicLineComponent.compileLine("{mySkriptVariable::%player}");
 ```
@@ -112,7 +112,7 @@ We can then use any dynamic line into a `DynamicComponent`. Think of `DynamicCom
 We can make a dynamic component like this:
 
 ```java
-import net.zffu.hollowboard.board.DynamicLineComponent;
+import net.zffu.hollowboard.board.lines.parts.DynamicLineComponent;
 import net.zffu.hollowboard.board.components.DynamicComponent;
 
 DynamicLineComponent myLineComponent = ...;

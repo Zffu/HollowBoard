@@ -1,24 +1,23 @@
 package net.zffu.hollowboard.board.components;
 
-import net.zffu.hollowboard.board.DynamicLineComponent;
-import org.bukkit.entity.Player;
-import org.eclipse.sisu.Dynamic;
+import net.zffu.hollowboard.HollowPlayer;
+import net.zffu.hollowboard.board.lines.DynamicLine;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A {@link BoardContentLike} that can be updatabable or not depending on it's contents.
+ * A {@link BoardContentLike} that can be updatabable or not depending on its contents.
  */
 public class DynamicComponent implements BoardContentLike {
 
-    private List<DynamicLineComponent> components;
+    private List<DynamicLine> components;
     private boolean canUpdate;
 
-    public DynamicComponent(List<DynamicLineComponent> components) {
+    public DynamicComponent(List<DynamicLine> components) {
         this.components = components;
 
-        for(DynamicLineComponent lineComponent : this.components) {
+        for(DynamicLine lineComponent : this.components) {
             if(lineComponent.canUpdate()) {
                 this.canUpdate = true;
                 break;
@@ -31,12 +30,12 @@ public class DynamicComponent implements BoardContentLike {
     }
 
     public void append(String str) {
-        DynamicLineComponent component = DynamicLineComponent.compileLine(str);
+        DynamicLine component = DynamicLine.compileLine(str);
 
         this.append(component);
     }
 
-    public void append(DynamicLineComponent component) {
+    public void append(DynamicLine component) {
         if(component.canUpdate()) {
             this.canUpdate = true;
         }
@@ -50,10 +49,10 @@ public class DynamicComponent implements BoardContentLike {
     }
 
     @Override
-    public List<String> write(Player player) {
+    public List<String> write(HollowPlayer player) {
         List<String> str = new ArrayList<>();
 
-        for(DynamicLineComponent component : this.components) {
+        for(DynamicLine component : this.components) {
             str.add(component.write(player));
         }
 
@@ -61,7 +60,7 @@ public class DynamicComponent implements BoardContentLike {
     }
 
     @Override
-    public int getSize(Player player) {
+    public int getSize(HollowPlayer player) {
         return this.write(player).size();
     }
 }

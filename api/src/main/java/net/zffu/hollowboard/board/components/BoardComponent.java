@@ -1,7 +1,7 @@
 package net.zffu.hollowboard.board.components;
 
-import net.zffu.hollowboard.HollowBoardPlugin;
 import net.zffu.hollowboard.HollowPlayer;
+import net.zffu.hollowboard.Visibility;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -60,7 +60,8 @@ public abstract class BoardComponent implements BoardContentLike {
     public void show(HollowPlayer player) {
         if(this.canSee(player)) return;
 
-        player.visibility.put(this, true);
+        player.markComponentVisibility(this, Visibility.VISIBLE);
+        //player.visibility.put(this, true);
         player.updateCurrentBoard();
     }
 
@@ -74,7 +75,8 @@ public abstract class BoardComponent implements BoardContentLike {
     public void hide(HollowPlayer player) {
         if(!this.canSee(player)) return;
 
-        player.visibility.put(this, false);
+        player.markComponentVisibility(this, Visibility.HIDDEN);
+        //player.visibility.put(this, false);
         player.updateCurrentBoard();
     }
 
@@ -83,7 +85,7 @@ public abstract class BoardComponent implements BoardContentLike {
      * @param player the player as an {@link HollowPlayer}.
      */
     public boolean canSee(HollowPlayer player) {
-        return player.visibility.containsKey(this) ? player.visibility.get(this) : this.visibleByDefault;
+        return player.getComponentVisibility(this) != Visibility.DEFAULT ? player.getComponentVisibility(this) == Visibility.VISIBLE : this.visibleByDefault;
     }
 
     @Override
@@ -94,15 +96,12 @@ public abstract class BoardComponent implements BoardContentLike {
     public abstract List<String> getContent(HollowPlayer player);
 
     @Override
-    public List<String> write(Player player) {
-        HollowPlayer p = HollowBoardPlugin.players.get(player.getUniqueId());
-        if(!this.canSee(p)) return List.of();
-
-        return this.getContent(p);
+    public List<String> write(HollowPlayer player) {
+        return this.getContent(player);
     }
 
     @Override
-    public int getSize(Player player) {
+    public int getSize(HollowPlayer player) {
         return this.write(player).size();
     }
 

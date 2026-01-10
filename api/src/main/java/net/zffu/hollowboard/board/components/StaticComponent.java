@@ -1,5 +1,6 @@
 package net.zffu.hollowboard.board.components;
 
+import net.zffu.hollowboard.HollowPlayer;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -19,12 +20,13 @@ public class StaticComponent implements BoardContentLike {
     }
 
     @Override
-    public List<String> write(Player player) {
+    public List<String> write(HollowPlayer player) {
         return this.contents;
     }
 
     @Override
-    public int getSize(Player player) {
+    public int getSize(HollowPlayer player) {
         return this.contents.size();
     }
+
 }
