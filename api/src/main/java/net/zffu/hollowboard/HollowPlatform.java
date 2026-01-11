@@ -18,4 +18,7 @@ public interface HollowPlatform {
      */
     @Nullable HollowPlayer getPlayer(@NotNull UUID playerUUID);
 
+    void appendUpdatablePlayer(HollowPlayer player);
+    void removeUpdatablePlayer(HollowPlayer player);
+
 }

@@ -17,6 +17,16 @@ public class SpigotPlatform implements HollowPlatform {
         return players.get(playerUUID);
     }
 
+    @Override
+    public void appendUpdatablePlayer(HollowPlayer player) {
+
+    }
+
+    @Override
+    public void removeUpdatablePlayer(HollowPlayer player) {
+
+    }
+
     public void removePlayer(UUID playerUUID) {
         players.remove(playerUUID);
     }
