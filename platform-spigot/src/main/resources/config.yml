@@ -1,0 +1,14 @@
+default-board: test
+
+components:
+  my-test-component:
+    contents:
+      - "Here is my content inside!"
+      - "§aThis will be replicated each time we use the component!"
+
+boards:
+  test:
+    contents:
+      - "§cHollow Board Testing!"
+      - ""
+      - my-test-component
