@@ -2,7 +2,6 @@ package net.zffu.hollowboard.board;
 
 import net.zffu.hollowboard.HollowPlayer;
 import net.zffu.hollowboard.board.components.BoardContentLike;
-import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -59,7 +58,7 @@ public class HollowBoard {
         for(int i = 0; i < content.index; ++i) {
             BoardContentLike like = this.lines.get(i);
 
-            sz += like.canUpdate() ? player.lastSizes.getOrDefault(like, 0) : like.getSize(player.player);
+            sz += like.canUpdate() ? player.lastSizes.getOrDefault(like, 0) : like.write(player).size();
         }
 
         return sz;
@@ -68,44 +67,46 @@ public class HollowBoard {
     private void onComponentSizeChange(IndexedContentLike like, HollowPlayer player) {
         int index = this.getTotalPreviousScoreboardSize(player, like);
 
-        List<String> comp = like.line.write(player.player);
+        List<String> comp = like.line.write(player);
         player.lastSizes.put(like.line, comp.size());
 
         for(String str : comp) {
-            player.scoreboard.change(index, str);
+            player.scoreboardController.setLine(index, str);
             ++index;
         }
 
         for(int i = like.index + 1; i < this.lines.size(); ++i) {
             BoardContentLike l = this.lines.get(i);
 
-            for(String str : l.write(player.player)) {
-                player.scoreboard.change(index, str);
+            for(String str : l.write(player)) {
+                player.scoreboardController.setLine(index, str);
                 ++index;
             }
         }
 
         for(int i = index; i < 15; ++i) {
-            player.scoreboard.remove(i);
+            player.scoreboardController.remove(i);
         }
     }
 
     public void update(IndexedContentLike like, HollowPlayer player) {
         int oldSize = player.lastSizes.getOrDefault(like.line, 0);
 
-        if(oldSize != like.line.getSize(player.player)) {
+        List<String> list = like.line.write(player);
+
+        if(oldSize != list.size()) {
             this.onComponentSizeChange(like, player);
             return;
         }
 
         int index = this.getTotalPreviousScoreboardSize(player, like);
 
-        List<String> comp = like.line.write(player.player);
+        List<String> comp = like.line.write(player);
 
         player.lastSizes.put(like.line, comp.size());
 
-        for(String str : like.line.write(player.player)) {
-            player.scoreboard.change(index, str);
+        for(String str : list) {
+            player.scoreboardController.setLine(index, str);
             ++index;
         }
     }

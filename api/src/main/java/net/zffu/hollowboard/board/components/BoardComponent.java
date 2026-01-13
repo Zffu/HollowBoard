@@ -2,7 +2,6 @@ package net.zffu.hollowboard.board.components;
 
 import net.zffu.hollowboard.HollowPlayer;
 import net.zffu.hollowboard.Visibility;
-import org.bukkit.entity.Player;
 
 import java.util.List;
 

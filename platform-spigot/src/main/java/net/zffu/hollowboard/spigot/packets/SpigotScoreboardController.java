@@ -25,7 +25,6 @@ public class SpigotScoreboardController implements PacketScoreboardController {
 
     @Override
     public void setLine(int index, String line) {
-
     }
 
     @Override

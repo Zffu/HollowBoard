@@ -16,10 +16,10 @@ public class HollowPlayer {
 
     private HollowBoard board;
 
-    private PacketScoreboardController scoreboardController;
+    public final PacketScoreboardController scoreboardController;
 
     private HashMap<BoardContentLike, Visibility> visibilityStates;
-    private HashMap<BoardContentLike, Integer> lastSizes;
+    public HashMap<BoardContentLike, Integer> lastSizes;
 
     private long lastUpdate;
 
@@ -39,7 +39,7 @@ public class HollowPlayer {
      * Sets the current board of the player to the given board
      * @param board the board
      */
-    void setCurrentBoard(@Nullable HollowBoard board) {
+    public void setCurrentBoard(@Nullable HollowBoard board) {
         this.lastSizes.clear();
         this.visibilityStates.clear();
 

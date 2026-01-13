@@ -1,7 +1,6 @@
 package net.zffu.hollowboard.board.components;
 
 import net.zffu.hollowboard.HollowPlayer;
-import org.bukkit.entity.Player;
 
 import java.util.List;
 

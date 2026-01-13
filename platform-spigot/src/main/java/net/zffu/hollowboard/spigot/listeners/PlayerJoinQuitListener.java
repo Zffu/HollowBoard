@@ -16,6 +16,10 @@ public class PlayerJoinQuitListener implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         HollowPlayer player = new HollowPlayer(new SpigotScoreboardController(PacketEvents.getAPI().getPlayerManager().getUser(event.getPlayer()), ""));
 
+        if(HollowBoardSpigotPlugin.instance.defaultBoard != null) {
+            player.setCurrentBoard(HollowBoardSpigotPlugin.instance.defaultBoard);
+        }
+
         HollowBoardSpigotPlugin.instance.platform.addPlayer(event.getPlayer().getUniqueId(), player);
     }
 

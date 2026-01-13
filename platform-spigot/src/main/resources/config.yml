@@ -8,6 +8,7 @@ components:
 
 boards:
   test:
+    title: "§a§lHOLLOWBOARD"
     contents:
       - "§cHollow Board Testing!"
       - ""
