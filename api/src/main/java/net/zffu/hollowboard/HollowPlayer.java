@@ -23,6 +23,10 @@ public class HollowPlayer {
 
     private long lastUpdate;
 
+    /**
+     * <p>Creates a new {@link HollowPlayer} instance based on the scoreboard.</p>
+     * @param controller the scoreboard controller
+     */
     public HollowPlayer(PacketScoreboardController controller) {
         this.board = null;
         this.scoreboardController = controller;
@@ -31,6 +35,10 @@ public class HollowPlayer {
         this.lastSizes = new HashMap<>();
     }
 
+    /**
+     * <p>Gets the player's current board.</p>
+     * @return the current board or null if none.
+     */
     public @Nullable HollowBoard getCurrentBoard() {
         return this.board;
     }
@@ -51,8 +59,6 @@ public class HollowPlayer {
             }
 
             this.board = null;
-
-            //HollowBoardPlugin.INSTANCE.tickingManager.removeTickPlayer(this);
 
             return;
         }

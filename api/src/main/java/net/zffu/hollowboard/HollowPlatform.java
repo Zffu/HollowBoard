@@ -1,5 +1,6 @@
 package net.zffu.hollowboard;
 
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,7 +19,10 @@ public interface HollowPlatform {
      */
     @Nullable HollowPlayer getPlayer(@NotNull UUID playerUUID);
 
+    @ApiStatus.Internal
     void appendUpdatablePlayer(HollowPlayer player);
+
+    @ApiStatus.Internal
     void removeUpdatablePlayer(HollowPlayer player);
 
 }
