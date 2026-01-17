@@ -79,6 +79,12 @@ HollowPlayer player = ...;
 player.setCurrentBoard(board);
 ```
 
+The player can be obtained through the platform instance by doing the following:
+```java
+UUID playerUUID = ...;
+HollowPlayer player = HollowBoardAPI.getInstance().getPlatformAccess().getPlayer(playerUUID);
+```
+
 Altough, for now, we can do everything in Spigot with a more complicated way. However, as stated before, HollowBoard also allows for dynamic lines! 
 
 We can try this by for example displaying a Skript value in our line. You can make dynamic lines from two ways:
