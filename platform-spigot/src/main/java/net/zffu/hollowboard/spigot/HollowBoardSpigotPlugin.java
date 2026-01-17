@@ -83,7 +83,7 @@ public final class HollowBoardSpigotPlugin extends JavaPlugin {
 
             List<DynamicLine> lines = new ArrayList<>();
 
-            for(String line : boards.getStringList("contents")) {
+            for(String line : board.getStringList("contents")) {
                 if(this.components.containsKey(line)) {
 
                     if(!lines.isEmpty()) {
