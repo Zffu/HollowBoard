@@ -100,6 +100,13 @@ public abstract class BoardComponent implements BoardContentLike {
     }
 
     @Override
+    public String toString() {
+        return "BoardComponent{" +
+                "visibleByDefault=" + visibleByDefault +
+                '}';
+    }
+
+    @Override
     public int getSize(HollowPlayer player) {
         return this.write(player).size();
     }

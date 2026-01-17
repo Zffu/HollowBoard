@@ -27,4 +27,11 @@ public class TextLinePart implements LinePart {
     public boolean isUpdatePossible() {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "TextLinePart{" +
+                "text='" + text + '\'' +
+                '}';
+    }
 }

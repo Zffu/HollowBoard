@@ -113,4 +113,11 @@ public class HollowPlayer {
         this.visibilityStates.put(like, visibility);
     }
 
+    @Override
+    public String toString() {
+        return "HollowPlayer{" +
+                "lastUpdate=" + lastUpdate +
+                ", board=" + board +
+                '}';
+    }
 }

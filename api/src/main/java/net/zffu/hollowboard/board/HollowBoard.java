@@ -6,6 +6,7 @@ import net.zffu.hollowboard.board.components.BoardContentLike;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HollowBoard {
 
@@ -131,6 +132,15 @@ public class HollowBoard {
 
     public List<IndexedContentLike> getUpdatableLines() {
         return updatableLines;
+    }
+
+    @Override
+    public String toString() {
+        return "HollowBoard{" +
+                "title='" + title + '\'' +
+                ", lines=" + lines.stream().map(e -> e.toString()).collect(Collectors.joining(", \n")) +
+                ", updatableLines=" + updatableLines.stream().map(e -> e.toString()).collect(Collectors.joining(", \n")) +
+                '}';
     }
 
     public static class IndexedContentLike {

@@ -8,6 +8,7 @@ import net.zffu.hollowboard.utils.ParseUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DynamicLine {
 
@@ -71,8 +72,8 @@ public class DynamicLine {
     @Override
     public String toString() {
         return "BoardLine{" +
-                "parts=" + parts +
-                ", canUpdate=" + canUpdate +
+                "parts=[" + parts.stream().map(e -> e.toString()).collect(Collectors.joining(", ")) +
+                "], canUpdate=" + canUpdate +
                 '}';
     }
 }

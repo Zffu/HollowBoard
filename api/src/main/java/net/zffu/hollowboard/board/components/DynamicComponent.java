@@ -4,7 +4,9 @@ import net.zffu.hollowboard.HollowPlayer;
 import net.zffu.hollowboard.board.lines.DynamicLine;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A {@link BoardContentLike} that can be updatabable or not depending on its contents.
@@ -61,6 +63,14 @@ public class DynamicComponent implements BoardContentLike {
         }
 
         return str;
+    }
+
+    @Override
+    public String toString() {
+        return "DynamicComponent{" +
+                "components=" + this.components.stream().map(e -> e.toString()).collect(Collectors.joining(", ")) +
+                ", canUpdate=" + canUpdate +
+                '}';
     }
 
     @Override

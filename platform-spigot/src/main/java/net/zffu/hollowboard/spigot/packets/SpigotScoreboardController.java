@@ -38,7 +38,7 @@ public class SpigotScoreboardController implements PacketScoreboardController {
     private void showLine(int index) {
         if(this.lines[index] == null) return;
 
-        WrapperPlayServerUpdateScore score = new WrapperPlayServerUpdateScore("line-" + index, WrapperPlayServerUpdateScore.Action.CREATE_OR_UPDATE_ITEM, "hollowsbdk", 15 - index, Component.text(this.lines[index]), ScoreFormat.fixedScore(Component.text(this.lines[index])));
+        WrapperPlayServerUpdateScore score = new WrapperPlayServerUpdateScore("line-" + index, WrapperPlayServerUpdateScore.Action.CREATE_OR_UPDATE_ITEM, "hollowsbdk", 15 - index, Component.text(this.lines[index]), null);
 
         this.user.sendPacket(score);
     }
