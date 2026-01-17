@@ -6,6 +6,7 @@ import net.zffu.hollowboard.board.lines.parts.TextLinePart;
 import net.zffu.hollowboard.utils.ParseUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DynamicLine {
@@ -56,19 +57,7 @@ public class DynamicLine {
     }
 
     public static DynamicLine compileLine(String original) {
-        List<LinePart> parts = new ArrayList<>();
-
-        for(int i = 0; i < original.length(); ++i) {
-            char c = original.toCharArray()[i];
-
-            int ind = ParseUtils.getFirstOpeningCharInStr(original, i);
-
-            parts.add(new TextLinePart(original.substring(i, ind)));
-
-            // TODO: add the missing line parts.
-        }
-
-        return new DynamicLine(parts);
+        return new DynamicLine(Arrays.asList(new TextLinePart(original)));
     }
 
     public List<LinePart> getParts() {
