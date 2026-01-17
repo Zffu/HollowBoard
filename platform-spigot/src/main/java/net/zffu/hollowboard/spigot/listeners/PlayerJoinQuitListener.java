@@ -1,7 +1,6 @@
 package net.zffu.hollowboard.spigot.listeners;
 
 import com.github.retrooper.packetevents.PacketEvents;
-import com.github.retrooper.packetevents.event.PacketEvent;
 import net.zffu.hollowboard.HollowPlayer;
 import net.zffu.hollowboard.spigot.HollowBoardSpigotPlugin;
 import net.zffu.hollowboard.spigot.packets.SpigotScoreboardController;
@@ -18,6 +17,8 @@ public class PlayerJoinQuitListener implements Listener {
 
         if(HollowBoardSpigotPlugin.instance.defaultBoard != null) {
             player.setCurrentBoard(HollowBoardSpigotPlugin.instance.defaultBoard);
+        } else {
+            HollowBoardSpigotPlugin.instance.getLogger().warning("Couldn't set player default scoreboard!!");
         }
 
         HollowBoardSpigotPlugin.instance.platform.addPlayer(event.getPlayer().getUniqueId(), player);

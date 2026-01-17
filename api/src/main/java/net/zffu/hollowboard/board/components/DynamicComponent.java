@@ -29,6 +29,10 @@ public class DynamicComponent implements BoardContentLike {
         this.components = new ArrayList<>();
     }
 
+    public List<DynamicLine> getComponents() {
+        return components;
+    }
+
     public void append(String str) {
         DynamicLine component = DynamicLine.compileLine(str);
 
